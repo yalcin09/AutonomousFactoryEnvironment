@@ -1,0 +1,2 @@
+mobile_robot:trajectory
+-DCATKIN_DEVEL_PREFIX=/home/yalcin/factory/devel -DCMAKE_INSTALL_PREFIX=/home/yalcin/factory/install -G Unix Makefiles

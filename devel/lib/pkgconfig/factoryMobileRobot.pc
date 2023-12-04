@@ -1,0 +1,8 @@
+prefix=/home/yalcin/factory/devel
+
+Name: factoryMobileRobot
+Description: Description of factoryMobileRobot
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

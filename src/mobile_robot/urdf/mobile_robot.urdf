@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot
+  name="mobile_robot">
+
+  <!-- ROS_CONTROL_PLUGIN -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/mobile_robot</robotNamespace>
+    </plugin>
+  </gazebo>
+
+<!-- ************************************************************************************ -->
+
+   <link name="base_footprint">
+    <inertial>
+      <mass value="0.0001" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+          iyy="0.0001" iyz="0.0" 
+          izz="0.0001" />
+    </inertial>
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <box size="0.001 0.001 0.001" />
+        </geometry>
+    </visual>
+  </link>
+
+<!-- ************************************************************************************ -->
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="-5.6012E-06 -2.2204E-16 0.042753" rpy="0 0 0" />
+      <mass value="35.633" />
+      <inertia ixx="1.8217" ixy="-9.2827E-16" ixz="-1.2537E-05"
+                            iyy="4.1378"      iyz="-4.2401E-15"
+                                              izz="5.2895" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/base_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <gazebo reference="base_link">
+    <material>Gazebo/Gray</material>
+  </gazebo>
+
+    <joint name="base_footprint_joint" type="fixed">
+      <origin xyz ="0.0 0.0 0.0975" rpy="0.0 0.0 0.0"/>
+      <parent link="base_footprint"/>
+      <child link="base_link"/>
+    </joint>
+
+<!-- ************************************************************************************ -->
+
+  <link name="outerBodyLink">
+    <inertial>
+      <origin xyz="-0.56025 -3.3138E-06 4.754E-05" rpy="0 0 0" />
+      <mass value="65.655" />
+      <inertia ixx="9.0515" ixy="2.6889E-06" ixz="2.3746E-14"
+                            iyy="16.608"     iyz="-1.9865E-14"
+                                             izz="23.47" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/outerBodyLink.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.50196 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/outerBodyLink.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="outerBodyLink">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <joint name="outerBodyJoint" type="fixed">
+    <origin xyz="0.56025 0 0.19001" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="outerBodyLink" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+<!-- ************************************************************************************ -->
+
+  <link name="frontCasterLink">
+    <inertial>
+      <origin xyz="1.1102E-16 -4.4409E-16 0.095922" rpy="0 0 0" />
+      <mass value="7.8759" />
+      <inertia ixx="0.053362" ixy="-1.0187E-17" ixz="-2.0544E-17"
+                              iyy="0.053362"    iyz="1.0521E-18"
+                                                izz="0.046393" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/frontCasterLink.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/frontCasterLink.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="frontCasterLink">
+    <mu1 value="0.5"/>
+    <mu2 value="0.5"/>
+    <kp value="100000.0"/>
+    <kd value="1.0"/>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+
+  <joint name="frontCasterJoint" type="fixed">
+    <origin xyz="0.5 0 -0.04875" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="frontCasterLink" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+<!-- ************************************************************************************ -->
+
+  <link name="backCasterLink">
+    <inertial>
+      <origin xyz="0 -4.4409E-16 0.095922" rpy="0 0 0" />
+      <mass value="7.8759" />
+      <inertia ixx="0.053362" ixy="-1.5412E-17" ixz="-1.1772E-18"
+                              iyy="0.053362"    iyz="3.1146E-17"
+                                                izz="0.046393" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/backCasterLink.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/backCasterLink.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="backCasterLink">
+    <mu1 value="0.5"/>
+    <mu2 value="0.5"/>
+    <kp value="100000.0"/>
+    <kd value="1.0"/>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <joint name="backCasterJoint" type="fixed">
+    <origin xyz="-0.5 0 -0.04875" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="backCasterLink" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+<!-- ************************************************************************************ -->
+
+  <link name="rightWheelLink">
+    <inertial>
+      <origin xyz="-8.5487E-14 -4.1323E-13 -1.1203E-07" rpy="0 0 0" />
+      <mass value="9.0457" />
+      <inertia ixx="0.063134" ixy="-2.941E-11" ixz="2.9021E-14"
+                              iyy="0.063134"   iyz="-6.8537E-14"
+                                               izz="0.12097" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/rightWheelLink.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/rightWheelLink.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="rightWheelLink">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+
+  <joint name="rightWheel_joint" type="continuous">
+    <origin xyz="0 -0.325 0.0375" rpy="1.5708 0 0" />
+    <parent link="base_link" />
+    <child link="rightWheelLink" />
+    <axis xyz="0 0 -1" />
+    <limit effort="10" velocity="50" />
+    <dynamics friction="1" />
+  </joint>
+
+  <transmission name="rightWheelTrans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="rightWheel_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="rightWheelActuator">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+<!-- ************************************************************************************ -->
+
+  <link name="leftWheeltLink">
+    <inertial>
+      <origin xyz="3.8308E-13 1.763E-13 1.1203E-07" rpy="0 0 0" />
+      <mass value="9.0457" />
+      <inertia ixx="0.063134" ixy="-2.9772E-11" ixz="-7.331E-14"
+                              iyy="0.063134"    iyz="1.2811E-14"
+                                                izz="0.12097" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/leftWheeltLink.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mobile_robot/meshes/leftWheeltLink.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="leftWheeltLink">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <joint name="leftWheel_joint" type="continuous">
+    <origin xyz="0 0.325 0.0375" rpy="1.5708 0 0" />
+    <parent link="base_link" />
+    <child link="leftWheeltLink" />
+    <axis xyz="0 0 -1" />
+    <limit effort="10" velocity="50" />
+    <dynamics friction="1" />
+  </joint>
+
+  <transmission name="leftWheelTrans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="leftWheel_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="leftWheelActuator">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+<!-- ************************************************************************************ -->
+
+  <link name="imuLink">
+    <inertial>
+      <mass value="0.000001" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.000001" ixy="0.0" ixz="0.0"
+                         iyy="0.000001" iyz="0.0" 
+                                        izz="0.000001" />
+    </inertial>
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <box size="0.01 0.01 0.01" />
+        </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <box size="0.01 0.01 0.01" />
+        </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="imuLink">
+    <material>Gazebo/Black</material>
+    <gravity>true</gravity>
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+      <topic>/imu</topic>
+      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+        <topicName>/imu</topicName>
+        <bodyName>imuLink</bodyName>
+        <updateRateHZ>10.0</updateRateHZ>
+        <gaussianNoise>0.0</gaussianNoise>
+        <xyzOffset>0 0 0</xyzOffset>
+        <rpyOffset>0 0 0</rpyOffset>
+        <frameName>odom</frameName>
+        <initialOrientationAsReference>false</initialOrientationAsReference>
+      </plugin>
+      <pose>0 0 0 0 0 0</pose>
+    </sensor>
+  </gazebo>
+
+  <joint name="imuJoint" type="fixed">
+    <child link="imuLink"/>
+    <parent link="base_link"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+  </joint>
+
+
+
+
+</robot>

@@ -1,0 +1,14 @@
+mobile_robot:
+   joint_state_controller:
+      type: joint_state_controller/JointStateController
+      publish_rate: 50
+
+   rightWheelController:
+      type: effort_controllers/JointVelocityController
+      joint: rightWheel_joint
+      pid: {p: 6.0, i: 0.00000015, d: 0.00000001, i_clamp: 100, antiwindup: true}
+
+   leftWheelController:
+      type: effort_controllers/JointVelocityController
+      joint: leftWheel_joint
+      pid: {p: 6.0, i: 0.00000015, d: 0.00000001, i_clamp: 100, antiwindup: true}

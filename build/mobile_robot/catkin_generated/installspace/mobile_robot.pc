@@ -1,0 +1,8 @@
+prefix=/home/yalcin/factory/install
+
+Name: mobile_robot
+Description: Description of mobile_robot
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp rospy std_msgs geometry_msgs nav_msgs tf
